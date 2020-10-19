@@ -12,7 +12,7 @@ void ofApp::setup(){
     text = "*** GUI PROJECT ***";
 
     // ADDED FOR GUI
-    //ringButton.addListener(this, &ofApp::ringButtonPressed);
+    ringButton.addListener(this, &ofApp::ringButtonPressed);
 
     guiPanel.setup("Press h hide/show","settings.xml", 20,20);
 
@@ -34,27 +34,62 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     if(xPos >= ofGetWidth() || xPos <= 0){
-        xSpeed *= -1;
+        xDirection *= -1;
     }
     if(yPos >= ofGetHeight() || yPos <= 0){
-        ySpeed *=-1;
+        yDirection *=-1;
     }
-    xPos += xSpeed;
-    yPos += ySpeed;
+
+    xSpeed = (int)xVel;
+    ySpeed = (int)yVel;
+
+    xPos += xSpeed * xDirection;
+    yPos += ySpeed * yDirection;
+
+    msgCoordinates = ofToString(xPos) + " - " + ofToString(yPos);
+    text = ofToString( textbox.getParameter() );
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofDrawBitmapString(xPos, ofGetWidth()/2, ofGetHeight()/2);
-    ofDrawBitmapString(yPos, ofGetWidth()/2, ofGetHeight()/2 + 25);
+    //ofDrawBitmapString(xPos, ofGetWidth()/2, ofGetHeight()/2);
+    //ofDrawBitmapString(yPos, ofGetWidth()/2, ofGetHeight()/2 + 25);
+    ofSetColor(color);
     ofDrawBitmapString(text, xPos,yPos);
+
+    if (!guiHide)
+    {
+        guiPanel.draw();
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
+    switch (key)
+    {
+    case 'h':
+    case 'H':
+        guiHide = !guiHide;
+        break;
+    case ' ':
+        color = ofColor(ofRandom(0,255),ofRandom(0,255),ofRandom(0,255));
+        break;
+    default:
+        break;
+    }
 }
 
+// -------------------------------------------------------------
+void ofApp::ringButtonPressed() {
+    ring.play();
+    text = "ring ring";
+}
+
+// -------------------------------------------------------------
+void ofApp::exit(){
+    ringButton.removeListener(this, &ofApp::ringButtonPressed);
+}
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
 

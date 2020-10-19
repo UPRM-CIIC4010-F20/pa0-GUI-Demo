@@ -28,13 +28,13 @@ class ofApp : public ofBaseApp{
 		ofxIntSlider yVel;
 		ofxColorSlider color;
 		ofxButton ringButton;
-		//void ringButtonPressed();
+		void ringButtonPressed();
 		ofSoundPlayer ring;
 		ofxLabel msgCoordinates;
 		ofxLabel label;
 		const string labelText = "Edit text & press enter";
 		ofxInputField<std::string> textbox;
-		//void exit();
+		void exit();
 
 	private:
 		string text;
