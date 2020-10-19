@@ -39,7 +39,7 @@
             "name": "Windows",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/pa0-praxis.exe",
+            "program": "${workspaceFolder}/bin/pa0-GUI-Demo.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
